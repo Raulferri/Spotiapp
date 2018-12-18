@@ -21,8 +21,8 @@ export class HomeComponent
     this.spotify.getNewReleases()
         .subscribe((data: any) => 
         {
-          console.log(data.albums.items);
-          this.nuevasCanciones = data.albums.items;
+          console.log(data);
+          this.nuevasCanciones = data;
         });
     /*console.log('Constructor del Home Hecho');
     this.http.get('https://restcountries.eu/rest/v2/lang/es')
