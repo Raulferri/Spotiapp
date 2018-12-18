@@ -7,13 +7,23 @@ import { SpotifyService } from 'src/app/services/spotify.service';
   templateUrl: './home.component.html',
   styles: []
 })
-export class HomeComponent implements OnInit {
-
+export class HomeComponent
+{
   //paises: any[] = [];
+
+  nuevasCanciones: any[] = [];
 
   //constructor( private http: HttpClient ) 
   constructor(private spotify: SpotifyService)
   { 
+    //loading
+    
+    this.spotify.getNewReleases()
+        .subscribe((data: any) => 
+        {
+          console.log(data.albums.items);
+          this.nuevasCanciones = data.albums.items;
+        });
     /*console.log('Constructor del Home Hecho');
     this.http.get('https://restcountries.eu/rest/v2/lang/es')
     .subscribe((respuesta:any) => //Lambda
@@ -22,8 +32,4 @@ export class HomeComponent implements OnInit {
       console.log(respuesta);
     })*/
   }
-
-  ngOnInit() {
-  }
-
 }
