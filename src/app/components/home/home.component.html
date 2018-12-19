@@ -3,5 +3,6 @@
     {{pais.name}} - {{pais.population | number}}
   </li>
 </ul>-->
-<app-tarjetas>
+<app-loading *ngIf="loading"></app-loading>
+<app-tarjetas [items] = "nuevasCanciones">
 </app-tarjetas>

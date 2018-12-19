@@ -13,16 +13,19 @@ export class HomeComponent
 
   nuevasCanciones: any[] = [];
 
+  loading: boolean;
+
   //constructor( private http: HttpClient ) 
   constructor(private spotify: SpotifyService)
   { 
-    //loading
+    this.loading = true;
     
     this.spotify.getNewReleases()
         .subscribe((data: any) => 
         {
           console.log(data);
           this.nuevasCanciones = data;
+          this.loading = false;
         });
     /*console.log('Constructor del Home Hecho');
     this.http.get('https://restcountries.eu/rest/v2/lang/es')

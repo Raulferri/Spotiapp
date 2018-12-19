@@ -1,12 +1,12 @@
-<div class="card-columns">
-  <div *ngFor="let cancion of nuevasCanciones" class="card">
-    <img class="card-img-top" [src]="cancion.images | noimage" alt="Card image cap">
+<div class="card-columns m-5 animated fadeIn">
+  <div (click)="verArtista(item)" *ngFor="let item of items" class="card puntero">
+    <img class="card-img-top" [src]="item.images | noimage" alt="Card image cap">
     <div class="card-body">
       <h5 class="card-title">
-        {{cancion.name}}
+        {{item.name}}
       </h5>
       <p class="card-text">
-          <span *ngFor="let artista of cancion.artists" class="badge badge-pill badge-primary">
+          <span *ngFor="let artista of item.artists" class="badge badge-pill badge-primary">
             {{artista.name}}
           </span>
       </p>
