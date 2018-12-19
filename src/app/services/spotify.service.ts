@@ -1,60 +1,56 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map  } from 'rxjs/operators';
 
-@Injectable({providedIn: 'root'})
+import { map } from 'rxjs/operators';
+
+@Injectable({
+  providedIn: 'root'
+})
 export class SpotifyService {
 
-  constructor(private http: HttpClient) 
-  { 
-    console.log('listo');
+  constructor(private http: HttpClient) {
+    console.log('Spotify Service Listo');
   }
 
-  getQuery(query : string)
-  {
+  getQuery( query: string ) {
+
     const url = `https://api.spotify.com/v1/${ query }`;
 
-    const headers = new HttpHeaders(
-      {
-        'Authorization' : 'Bearer BQByDxBhpw-sLbdu5fcIKB4-NwbPzvpVhkcpwXuBsR-VKSCy7-37zWtWGbpfv8bnGMV0UfEhLX9B8GP7Xr0'
-      });
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer BQBhkr1ezlkhDcXTWyg7f_B-FPuvYxQkvm-lhFj507VacRhSYJYWssMdVDE0gAytRo87JOJHhvX6mFDRrCM'
+    });
 
     return this.http.get(url, { headers });
+
   }
 
-  getNewReleases()
-  {
+
+  getNewReleases() {
+
     return this.getQuery('browse/new-releases?limit=20')
-               .pipe(map ((data) =>
-               {
-                  return data['albums'].items;
-               }));
+              .pipe( map( data => data['albums'].items ));
+
   }
 
-  getArtistas(termino:String)
-  {
+  getArtistas( termino: string ) {
+
     return this.getQuery(`search?q=${ termino }&type=artist&limit=15`)
-                .pipe(map ((data) =>
-                {
-                  return data['artists'].items;
-                }));
+                .pipe( map( data => data['artists'].items));
+
   }
 
-  getArtista(id:String)
-  {
-    return this.getQuery(`artist/${ id }`);
-                // .pipe(map ((data) =>
-                // {
-                //   return data['artists'].items;
-                // }));
+  getArtista( id: string ) {
+
+    return this.getQuery(`artists/${ id }`);
+                // .pipe( map( data => data['artists'].items));
+
   }
 
-  getTopTracks(id:String)
-  {
-    return this.getQuery(`artist/${ id }/top-tracks`);
-                // .pipe(map ((data) =>
-                // {
-                //   return data['artists'].items;
-                // }));
+  getTopTracks( id: string ) {
+
+    return this.getQuery(`artists/${ id }/top-tracks?country=us`)
+                .pipe( map( data => data['tracks']));
+
   }
+
 }
